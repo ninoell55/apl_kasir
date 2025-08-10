@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 09 Agu 2025 pada 09.44
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.0.30
+-- Host: 127.0.0.1:3309
+-- Generation Time: Aug 10, 2025 at 07:09 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_pesanan`
+-- Table structure for table `detail_pesanan`
 --
 
 CREATE TABLE `detail_pesanan` (
@@ -36,10 +36,19 @@ CREATE TABLE `detail_pesanan` (
   `catatan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `detail_pesanan`
+--
+
+INSERT INTO `detail_pesanan` (`id_detail_pesanan`, `id_pesanan`, `id_menu`, `qty`, `subtotal`, `catatan`) VALUES
+(1, 1, 1, 2, 20000, 'jangan pedes pedes ya mas'),
+(2, 2, 2, 1, 30000, 'yang pedes mas'),
+(3, 3, 3, 3, 100000, 'buat mabok mas');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_status_pesanan`
+-- Table structure for table `log_status_pesanan`
 --
 
 CREATE TABLE `log_status_pesanan` (
@@ -50,10 +59,19 @@ CREATE TABLE `log_status_pesanan` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `log_status_pesanan`
+--
+
+INSERT INTO `log_status_pesanan` (`id_log_status`, `id_pesanan`, `status_baru`, `waktu`, `created_at`) VALUES
+(1, 1, 'dibayar', '2025-08-10 12:08:08', '2025-08-10 12:08:08'),
+(2, 2, 'dibayar', '2025-08-10 12:08:08', '2025-08-10 12:08:08'),
+(5, 3, 'dibayar', '2025-08-10 12:08:51', '2025-08-10 12:08:51');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `meja`
+-- Table structure for table `meja`
 --
 
 CREATE TABLE `meja` (
@@ -62,10 +80,19 @@ CREATE TABLE `meja` (
   `status` enum('kosong','digunakan') DEFAULT 'kosong'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `meja`
+--
+
+INSERT INTO `meja` (`id_meja`, `no_meja`, `status`) VALUES
+(1, '1', 'kosong'),
+(2, '2', 'kosong'),
+(3, '3', 'kosong');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `member`
+-- Table structure for table `member`
 --
 
 CREATE TABLE `member` (
@@ -81,10 +108,17 @@ CREATE TABLE `member` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `member`
+--
+
+INSERT INTO `member` (`id_member`, `nama`, `email`, `no_hp`, `alamat`, `password`, `tanggal_daftar`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'patan', 'patan123@gmail.com', '0891820983', 'kota cirebon', 'patan2', '2025-08-10 11:59:55', 'aktif', '2025-08-10 11:59:55', '2025-08-10 11:59:55');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
@@ -99,10 +133,19 @@ CREATE TABLE `menu` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`id_menu`, `nama_menu`, `kategori`, `harga`, `deskripsi`, `gambar`, `tersedia`, `created_at`, `updated_at`) VALUES
+(1, 'spageti', 'makanan', 20000, 'spageti ini enakk banget cuy', 'spageti.jpg', 4, '2025-08-10 11:55:54', '2025-08-10 11:55:54'),
+(2, 'pizza', 'makanan', 30000, 'pizza ini gaenak', 'pizza.jpg', 2, '2025-08-10 11:55:54', '2025-08-10 11:55:54'),
+(3, 'iceland', 'minuman', 100000, 'iceland ini cocok buat orang yang stres', 'iceland.jpg', 3, '2025-08-10 11:56:38', '2025-08-10 11:56:38');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembayaran`
+-- Table structure for table `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -116,10 +159,19 @@ CREATE TABLE `pembayaran` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_pesanan`, `jumlah_bayar`, `kembalian`, `tanggal_pembayaran`, `id_kasir`, `created_at`, `updated_at`) VALUES
+(1, 1, 70000, 30000, '2025-08-10 12:06:38', 2, '2025-08-10 12:06:38', '2025-08-10 12:06:38'),
+(2, 2, 40000, 10000, '2025-08-10 12:06:38', 2, '2025-08-10 12:06:38', '2025-08-10 12:06:38'),
+(3, 3, 300000, 0, '2025-08-10 12:07:06', 3, '2025-08-10 12:07:06', '2025-08-10 12:07:06');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pesanan`
+-- Table structure for table `pesanan`
 --
 
 CREATE TABLE `pesanan` (
@@ -135,10 +187,19 @@ CREATE TABLE `pesanan` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pesanan`
+--
+
+INSERT INTO `pesanan` (`id_pesanan`, `kode_pesanan`, `id_meja`, `metode_pesanan`, `status`, `total`, `tanggal_pesanan`, `id_member`, `created_at`, `updated_at`) VALUES
+(1, 'DJ11', 1, 'dine-in', 'menunggu', 40000, '2025-08-10 11:59:10', NULL, '2025-08-10 11:59:10', '2025-08-10 12:05:23'),
+(2, 'DJ12', 2, 'takeaway', 'menunggu', 30000, '2025-08-10 11:59:10', NULL, '2025-08-10 11:59:10', '2025-08-10 12:05:34'),
+(3, 'DJ13', 3, 'dine-in', 'menunggu', 300000, '2025-08-10 12:01:58', 1, '2025-08-10 12:01:58', '2025-08-10 12:05:43');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -150,11 +211,20 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `username`, `password`, `role`, `nama_lengkap`) VALUES
+(1, 'rayen', 'rayen1', 'admin', 'fathanaprian'),
+(2, 'rido', 'rido1', 'kasir', 'mohamadrido'),
+(3, 'patan', 'patan2', 'kasir', 'ahmedpatan');
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `detail_pesanan`
+-- Indexes for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
   ADD PRIMARY KEY (`id_detail_pesanan`),
@@ -162,33 +232,33 @@ ALTER TABLE `detail_pesanan`
   ADD KEY `id_menu` (`id_menu`);
 
 --
--- Indeks untuk tabel `log_status_pesanan`
+-- Indexes for table `log_status_pesanan`
 --
 ALTER TABLE `log_status_pesanan`
   ADD PRIMARY KEY (`id_log_status`),
   ADD KEY `id_pesanan` (`id_pesanan`);
 
 --
--- Indeks untuk tabel `meja`
+-- Indexes for table `meja`
 --
 ALTER TABLE `meja`
   ADD PRIMARY KEY (`id_meja`);
 
 --
--- Indeks untuk tabel `member`
+-- Indexes for table `member`
 --
 ALTER TABLE `member`
   ADD PRIMARY KEY (`id_member`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `menu`
+-- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
--- Indeks untuk tabel `pembayaran`
+-- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_pembayaran`),
@@ -196,7 +266,7 @@ ALTER TABLE `pembayaran`
   ADD KEY `id_kasir` (`id_kasir`);
 
 --
--- Indeks untuk tabel `pesanan`
+-- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`id_pesanan`),
@@ -205,93 +275,93 @@ ALTER TABLE `pesanan`
   ADD KEY `id_member` (`id_member`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `detail_pesanan`
+-- AUTO_INCREMENT for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `log_status_pesanan`
+-- AUTO_INCREMENT for table `log_status_pesanan`
 --
 ALTER TABLE `log_status_pesanan`
-  MODIFY `id_log_status` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `meja`
+-- AUTO_INCREMENT for table `meja`
 --
 ALTER TABLE `meja`
-  MODIFY `id_meja` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_meja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `member`
+-- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `menu`
+-- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pembayaran`
+-- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pesanan`
+-- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `detail_pesanan`
+-- Constraints for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  ADD CONSTRAINT `detail_pesanan_ibfk_1` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`) ON DELETE CASCADE,
-  ADD CONSTRAINT `detail_pesanan_ibfk_2` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`);
+  ADD CONSTRAINT `detail_pesanan_ibfk_1` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_pesanan_ibfk_2` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `log_status_pesanan`
+-- Constraints for table `log_status_pesanan`
 --
 ALTER TABLE `log_status_pesanan`
-  ADD CONSTRAINT `log_status_pesanan_ibfk_1` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`);
+  ADD CONSTRAINT `log_status_pesanan_ibfk_1` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pembayaran`
+-- Constraints for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`),
-  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`id_kasir`) REFERENCES `users` (`id_user`);
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_kasir`) REFERENCES `users` (`id_user`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pesanan`
+-- Constraints for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  ADD CONSTRAINT `pesanan_ibfk_1` FOREIGN KEY (`id_meja`) REFERENCES `meja` (`id_meja`),
-  ADD CONSTRAINT `pesanan_ibfk_2` FOREIGN KEY (`id_member`) REFERENCES `member` (`id_member`);
+  ADD CONSTRAINT `pesanan_ibfk_1` FOREIGN KEY (`id_meja`) REFERENCES `meja` (`id_meja`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `pesanan_ibfk_2` FOREIGN KEY (`id_member`) REFERENCES `member` (`id_member`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
