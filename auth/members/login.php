@@ -1,26 +1,43 @@
-<?php 
+<?php
+include "../../connection/conn.php"; // koneksi ke database
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
+    // Cek username dan password di database
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
+    if ($result->num_rows === 1) {
+        // Jika berhasil login, langsung redirect
+        header("Location: ../../pages/users/dashboard.php");
+        exit;
+    } else {
+        echo "<p style='color:red;'>Username atau password salah!</p>";
+    }
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Member</title>
 </head>
 <body>
-    <h1>login member</h1>
+    <h1>Login Member</h1>
     <form action="" method="post">
-    <label for="username">username</label>
-    <input type="text" name="username">
+        <label>Username</label>
+        <input type="text" name="username" required>
 
-     <label for="password">password</label>
-    <input type="text" name="password">
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Login</button>
     </form>
 </body>
 </html>

@@ -5,6 +5,7 @@ $username = 'root';
 $password = '';
 $dbname = 'apl_kasir';
 
+
 // Create connection
 $conn = new mysqli($hostname, $username, $password, $dbname);
 // Check connection
