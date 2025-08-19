@@ -5,7 +5,43 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // base_url for the application
-define('BASE_URL', 'http://localhost/apl_kasir/');
+define('BASE_URL', '/apl_kasir/');
+
+// Function -- LOGIN >>
+function login_users($conn, $username, $password)
+{
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows === 1) {
+        $row = $result->fetch_assoc();  
+
+        if ($row['password'] === $password) {
+            // Simpan session
+            $_SESSION['id_user'] = $row['id_user'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = $row['role'];
+            $_SESSION['nama_lengkap'] = $row['nama_lengkap'];
+            // LOGIN SESSION
+            $_SESSION['login_users'] = true;
+            $_SESSION['login_success'] = true;
+
+            $stmt->close();
+            return ['success' => true];
+        } else {
+            $stmt->close();
+            return ['success' => false, 'message' => 'Password salah. Silakan coba lagi.'];
+        }   
+    } else {
+        $stmt->close();
+        return ['success' => false, 'message' => 'Username tidak ditemukan.'];
+    }
+}
+// Function -- LOGIN--end >>
+
 
 // Select Data || Menampilkan Data ->
 function query($query)
@@ -19,6 +55,7 @@ function query($query)
     return $rows;
 }
 // <- End Select Data
+
 
 // FUNCTION MENU-start >>>
 // Add
