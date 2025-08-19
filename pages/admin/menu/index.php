@@ -1,8 +1,15 @@
 <?php
-// Halaman utama manajemen menu (CRUD)
-
+// Halaman utama menu
 require_once '../../../connection/conn.php';
 require_once '../../../config/functions.php';
+
+$pageTitle = 'Halaman Utama Menu';
+
+// Pengecekan SESSION ADMIN
+if (!isset($_SESSION['login_users'])) {
+    header('Location: ../../../auth/admin/login.php');
+    exit;
+}
 
 // Ambil data menu dari database
 $menu = query("SELECT * FROM menu ORDER BY id_menu DESC");
@@ -12,41 +19,53 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="max-w-4xl mx-auto mt-8">
-    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Manajemen Menu</h2>
-    <a href="tambah.php" class="inline-block px-5 py-2 mb-4 bg-green-600 text-white rounded hover:bg-green-700 transition">Tambah Menu</a>
-    <div class="overflow-x-auto">
-        <table class="min-w-full border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-900">
+<div class="max-w-5xl mx-auto mt-10 px-4">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Manajemen Menu</h2>
+        <a href="tambah.php"
+            class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+            + Tambah Menu
+        </a>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl shadow">
+        <table class="min-w-full text-sm bg-white dark:bg-gray-900">
             <thead>
-                <tr class="bg-gray-100 dark:bg-gray-800">
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">No</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Nama Menu</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Kategori</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Harga</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Deskripsi</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Gambar</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Tersedia</th>
-                    <th class="border px-4 py-2 text-gray-900 dark:text-gray-100">Aksi</th>
+                <tr class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                    <th class="px-4 py-3 text-left">No</th>
+                    <th class="px-4 py-3 text-left">Nama Menu</th>
+                    <th class="px-4 py-3 text-left">Kategori</th>
+                    <th class="px-4 py-3 text-right">Harga</th>
+                    <th class="px-4 py-3 text-left">Deskripsi</th>
+                    <th class="px-4 py-3 text-center">Gambar</th>
+                    <th class="px-4 py-3 text-center">Tersedia</th>
+                    <th class="px-4 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                 <?php $no = 1;
                 foreach ($menu as $row): ?>
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                        <td class="border px-4 py-2 text-center text-gray-900 dark:text-gray-100"><?= $no++; ?></td>
-                        <td class="border px-4 py-2 text-gray-900 dark:text-gray-100"><?= htmlspecialchars($row['nama_menu']); ?></td>
-                        <td class="border px-4 py-2 text-center text-gray-900 dark:text-gray-100"><?= htmlspecialchars($row['kategori']); ?></td>
-                        <td class="border px-4 py-2 text-right text-gray-900 dark:text-gray-100">Rp<?= number_format($row['harga'], 0, ',', '.'); ?></td>
-                        <td class="border px-4 py-2 text-gray-900 dark:text-gray-100"><?= htmlspecialchars($row['deskripsi']); ?></td>
-                        <td class="border px-4 py-2 text-center">
+                        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><?= $no++; ?></td>
+                        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><?= htmlspecialchars($row['nama_menu']); ?></td>
+                        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><?= htmlspecialchars($row['kategori']); ?></td>
+                        <td class="px-4 py-2 text-right text-gray-900 dark:text-gray-100">Rp<?= number_format($row['harga'], 0, ',', '.'); ?></td>
+                        <td class="px-4 py-2 text-gray-700 dark:text-gray-300"><?= htmlspecialchars($row['deskripsi']); ?></td>
+                        <td class="px-4 py-2 text-center">
                             <?php if ($row['gambar']): ?>
-                                <img src="../../../assets/upload/<?= htmlspecialchars($row['gambar']); ?>" class="w-16 h-12 object-cover mx-auto" />
+                                <img src="../../../assets/upload/<?= htmlspecialchars($row['gambar']); ?>"
+                                    class="w-16 h-12 object-cover mx-auto rounded-md shadow-sm" />
                             <?php endif; ?>
                         </td>
-                        <td class="border px-4 py-2 text-center text-gray-900 dark:text-gray-100"><?= (int)$row['tersedia'] > 0 ? $row['tersedia'] : 'Habis'; ?></td>
-                        <td class="border px-4 py-2 text-center">
-                            <a href="edit.php?id=<?= $row['id_menu']; ?>" class="inline-block px-3 py-1 text-yellow-400 rounded hover:text-yellow-500 mr-1">Edit</a>
-                            <a href="hapus.php?id=<?= $row['id_menu']; ?>" class="inline-block px-3 py-1 text-red-600 rounded hover:text-red-700" onclick="return confirm('Yakin hapus menu ini?')">Hapus</a>
+                        <td class="px-4 py-2 text-center font-medium <?= (int)$row['tersedia'] > 0 ? 'text-green-600' : 'text-red-500'; ?>">
+                            <?= (int)$row['tersedia'] > 0 ? $row['tersedia'] : 'Habis'; ?>
+                        </td>
+                        <td class="px-4 py-2 text-center">
+                            <a href="edit.php?id=<?= $row['id_menu']; ?>"
+                                class="px-3 py-1 text-yellow-600 hover:text-yellow-700 font-medium">Edit</a>
+                            <a href="hapus.php?id=<?= $row['id_menu']; ?>"
+                                class="px-3 py-1 text-red-600 hover:text-red-700 font-medium"
+                                onclick="return confirm('Yakin hapus menu ini?')">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

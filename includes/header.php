@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?? 'Aplikasi Kasir'; ?></title>
     <!-- ICON-Website -->
-    <link rel="icon" type="image/x-icon" href="<?= BASE_URL; ?>assets/images/logo_smk.png" />
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL; ?>assets/img/logo.png" />
     <!-- MyCSS -->
     <link href="<?= BASE_URL; ?>/assets/css/output.css" rel="stylesheet">
     <!-- Icon -->

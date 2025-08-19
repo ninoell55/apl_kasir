@@ -2,9 +2,7 @@
 require_once "../../../libs/phpqrcode/qrlib.php";
 include "../../../connection/conn.php";
 
-
 $base_url = "http://localhost/apl_kasir/pages/users/menu/menu.php?id_meja=";
-
 
 $query = mysqli_query($conn, "SELECT id_meja FROM meja");
 
