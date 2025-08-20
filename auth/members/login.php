@@ -26,10 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Member</title>
+    <title>Register</title>
+
+    
 </head>
 <body>
-    <h1>Login Member</h1>
+
+<div class="card">
+    <h1>Register</h1>
+    <p>Caffe Member</p>
+
     <form action="" method="post">
         <label>Username</label>
         <input type="text" name="username" required>
@@ -39,5 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit">Login</button>
     </form>
+</div>
+
+
+
 </body>
 </html>
