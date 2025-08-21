@@ -9,6 +9,8 @@
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL; ?>assets/img/logo.png" />
     <!-- MyCSS -->
     <link href="<?= BASE_URL; ?>/assets/css/output.css" rel="stylesheet">
+    <!-- Box Icon -->
+    <link href="<?= BASE_URL; ?>/assets/boxicons/css/boxicons.min.css" rel="stylesheet">
     <!-- Icon -->
     <script src="<?= BASE_URL; ?>/assets/js/lucide.min.js"></script>
     <!-- Chart -->
