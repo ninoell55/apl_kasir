@@ -13,6 +13,8 @@
     <script src="<?= BASE_URL; ?>/assets/js/lucide.min.js"></script>
     <!-- Chart -->
     <script src="<?= BASE_URL; ?>/assets/js/chart.js"></script>
+    <!-- Box Icon -->
+     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 
-<body class="bg-gray-900 text-white">
+<body class="">
