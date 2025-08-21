@@ -5,7 +5,7 @@ require_once '../../../config/functions.php';
 
 $pageTitle = 'Halaman Hapus Menu';
 
-// Pengecekan SESSION ADMIN
+// Cek login
 if (!isset($_SESSION['login_users'])) {
     header('Location: ../../../auth/admin/login.php');
     exit;
@@ -16,9 +16,10 @@ $id = $_GET['id'] ?? 0;
 
 if ($id) {
     if (deleteMenu($id)) {
-        header('Location: index.php');
+        header('Location: index.php?success=hapus');
         exit;
     } else {
-        $error = 'Gagal menghapus menu. Pastikan ID menu valid.';
+        header("Location: index.php?error=1");
+        exit;
     }
 }

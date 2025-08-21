@@ -5,7 +5,7 @@ require_once '../../../config/functions.php';
 
 $pageTitle = 'Halaman Utama Menu';
 
-// Pengecekan SESSION ADMIN
+// Cek login
 if (!isset($_SESSION['login_users'])) {
     header('Location: ../../../auth/admin/login.php');
     exit;
@@ -19,7 +19,7 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="max-w-5xl mx-auto mt-10 px-4">
+<div class="mx-auto mt-10 px-4">
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Manajemen Menu</h2>
         <a href="tambah.php"

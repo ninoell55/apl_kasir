@@ -5,7 +5,7 @@ require_once '../../../config/functions.php';
 
 $pageTitle = 'Halaman Tambah Menu';
 
-// Pengecekan SESSION ADMIN
+// Cek login
 if (!isset($_SESSION['login_users'])) {
     header('Location: ../../../auth/admin/login.php');
     exit;
@@ -23,10 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     if (addMenu($data) > 0) {
-        header('Location: index.php');
+        header('Location: index.php?success=tambah');
         exit;
     } else {
         $error = 'Gagal menambahkan menu. Pastikan semua data terisi dengan benar.';
+        exit;   
     }
 }
 
@@ -36,7 +37,7 @@ require_once '../../../includes/sidebar.php';
 ?>
 
 <div class="max-w-md mx-auto mt-10 px-4">
-    <div class="bg-white dark:bg-gray-900 rounded-xl shadow p-6">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow p-6">   
         <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Tambah Menu</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Isi detail menu baru dengan lengkap.</p>
 

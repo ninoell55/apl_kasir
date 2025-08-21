@@ -1,3 +1,10 @@
+<?php 
+if (isset($_SESSION['login_users'])) {
+    header('Location: pages/admin/dashboard.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 

@@ -5,7 +5,7 @@ require_once '../../../config/functions.php';
 
 $pageTitle = 'Halaman Edit Menu';
 
-// Pengecekan SESSION ADMIN
+// Cek login
 if (!isset($_SESSION['login_users'])) {
     header('Location: ../../../auth/admin/login.php');
     exit;
@@ -38,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data['gambar'] = $row['gambar']; // tetap gunakan gambar lama jika tidak upload baru
     }
     if (editMenu($data) > 0) {
-        header('Location: index.php');
+        header('Location: index.php?success=edit');
         exit;
     } else {
         $error = 'Gagal menyimpan perubahan menu. Pastikan semua data terisi dengan benar.';
+        exit;
     }
 }
 

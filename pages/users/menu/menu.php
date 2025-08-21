@@ -14,13 +14,15 @@ $menu_q = $conn->query("SELECT * FROM menu");
 ?>
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Menu - Pesan</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gradient-to-b from-orange-50 to-orange-100 min-h-screen">
-  
+
   <!-- Navbar -->
   <div class="bg-white shadow-md sticky top-0 z-50">
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -36,12 +38,11 @@ $menu_q = $conn->query("SELECT * FROM menu");
 
   <!-- Search Bar -->
   <div class="container mx-auto px-4 mt-4">
-    <input 
-      type="text" 
-      id="searchMenu" 
-      placeholder="Cari menu..." 
-      class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-orange-400 focus:outline-none"
-    >
+    <input
+      type="text"
+      id="searchMenu"
+      placeholder="Cari menu..."
+      class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-orange-400 focus:outline-none">
   </div>
 
   <!-- Content -->
@@ -54,11 +55,10 @@ $menu_q = $conn->query("SELECT * FROM menu");
       <!-- List Menu -->
       <div id="menuContainer" class="flex flex-wrap -m-2">
         <?php while ($m = $menu_q->fetch_assoc()): ?>
-          <div 
-            class="menu-card w-full sm:w-1/2 md:w-1/3 p-2" 
+          <div
+            class="menu-card w-full sm:w-1/2 md:w-1/3 p-2"
             data-category="<?= htmlspecialchars($m['kategori'] ?? 'all') ?>"
-            data-name="<?= htmlspecialchars(strtolower($m['nama_menu'])) ?>"
-          >
+            data-name="<?= htmlspecialchars(strtolower($m['nama_menu'])) ?>">
             <div class="bg-gradient-to-b from-orange-100 to-orange-200 rounded-2xl shadow-lg hover:shadow-xl transition p-4 flex flex-col h-full">
               <?php if (!empty($m['gambar'])): ?>
                 <img src="uploads/<?= htmlspecialchars($m['gambar']) ?>" class="h-40 w-full object-cover rounded-xl mb-3">
@@ -66,7 +66,7 @@ $menu_q = $conn->query("SELECT * FROM menu");
               <h5 class="text-lg font-semibold text-gray-800"><?= htmlspecialchars($m['nama_menu']) ?></h5>
               <p class="text-sm text-gray-600 flex-grow"><?= nl2br(htmlspecialchars($m['deskripsi'])) ?></p>
               <p class="text-base font-bold text-gray-800 mt-2">Rp <?= number_format($m['harga'], 0, ',', '.') ?></p>
-              
+
               <div class="flex justify-center items-center gap-2 mt-4">
                 <button type="button" class="px-3 py-1 bg-gray-200 rounded-full qty-minus">-</button>
                 <input type="number"
@@ -96,7 +96,7 @@ $menu_q = $conn->query("SELECT * FROM menu");
             <h5 class="text-lg font-bold">Konfirmasi Pesanan (Meja <?= $id_meja ?>)</h5>
             <button type="button" class="text-gray-500" onclick="closeModal('#mejaModal')">&times;</button>
           </div>
-          
+
           <div class="mb-4">
             <h6 class="font-semibold">Ringkasan Pesanan</h6>
             <div id="orderSummary" class="border rounded-xl p-3 max-h-60 overflow-y-auto text-sm text-gray-700">
@@ -104,7 +104,7 @@ $menu_q = $conn->query("SELECT * FROM menu");
             </div>
             <p class="mt-3 font-semibold">Total: <span id="orderTotal">Rp 0</span></p>
           </div>
-          
+
           <div class="flex justify-end gap-2 mt-4">
             <button type="button" class="px-4 py-2 bg-gray-300 rounded-xl" onclick="closeModal('#mejaModal')">Batal</button>
             <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-xl">Konfirmasi & Simpan</button>
@@ -143,6 +143,7 @@ $menu_q = $conn->query("SELECT * FROM menu");
         updateSummary();
       });
     });
+
     function closeModal(selector) {
       const modal = document.querySelector(selector);
       modal.classList.add("hidden");
@@ -167,7 +168,12 @@ $menu_q = $conn->query("SELECT * FROM menu");
           const name = inp.dataset.name || 'Item';
           const price = parseInt(inp.dataset.price || 0);
           const subtotal = price * qty;
-          items.push({ name, qty, price, subtotal });
+          items.push({
+            name,
+            qty,
+            price,
+            subtotal
+          });
           total += subtotal;
         }
       });
@@ -203,11 +209,11 @@ $menu_q = $conn->query("SELECT * FROM menu");
         });
         // Update style tombol aktif
         document.querySelectorAll('.category-btn').forEach(b => {
-          b.classList.remove('bg-orange-500','text-white');
-          b.classList.add('bg-gray-200','text-gray-700');
+          b.classList.remove('bg-orange-500', 'text-white');
+          b.classList.add('bg-gray-200', 'text-gray-700');
         });
-        btn.classList.add('bg-orange-500','text-white');
-        btn.classList.remove('bg-gray-200','text-gray-700');
+        btn.classList.add('bg-orange-500', 'text-white');
+        btn.classList.remove('bg-gray-200', 'text-gray-700');
       });
     });
 
@@ -225,4 +231,5 @@ $menu_q = $conn->query("SELECT * FROM menu");
     });
   </script>
 </body>
+
 </html>
