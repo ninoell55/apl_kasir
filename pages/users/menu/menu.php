@@ -122,7 +122,6 @@ $menu_q = $conn->query("SELECT * FROM menu");
         </div>
       </div>
 
-
       <script>
         // Sidebar Control
         const sidebar = document.getElementById("sidebar");
