@@ -29,26 +29,27 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">Edit User</h1>
-    <?php if (isset($error)): ?>
-        <p class="text-red-400"><?= $error; ?></p>
-    <?php endif; ?>
+<div class="p-6 bg-gray-900 min-h-screen text-gray-100">
+    <div class="max-w-md mx-auto mt-10 px-4">
+        <h1 class="text-2xl font-bold mb-4">Edit User</h1>
+        <?php if (isset($error)): ?>
+            <p class="text-red-400"><?= $error; ?></p>
+        <?php endif; ?>
 
-    <form method="POST" class="space-y-4">
-        <input type="text" name="username" value="<?= htmlspecialchars($user['username']); ?>" placeholder="Username" class="w-full p-2 rounded bg-gray-800 text-white" required>
+        <form method="POST" class="space-y-4">
+            <input type="text" name="username" value="<?= htmlspecialchars($user['username']); ?>" placeholder="Username" class="w-full p-2 rounded bg-gray-800 text-white" required>
 
-        <input type="password" name="password" placeholder="Password baru (kosongkan jika tidak diganti)" class="w-full p-2 rounded bg-gray-800 text-white">
+            <input type="password" name="password" placeholder="Password baru (kosongkan jika tidak diganti)" class="w-full p-2 rounded bg-gray-800 text-white">
 
-        <input type="text" name="nama_lengkap" value="<?= htmlspecialchars($user['nama_lengkap']); ?>" placeholder="Nama Lengkap" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            <input type="text" name="nama_lengkap" value="<?= htmlspecialchars($user['nama_lengkap']); ?>" placeholder="Nama Lengkap" class="w-full p-2 rounded bg-gray-800 text-white" required>
 
-        <select name="role" class="w-full p-2 rounded bg-gray-800 text-white" required>
-            <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
-            <option value="kasir" <?= $user['role'] == 'kasir' ? 'selected' : ''; ?>>Kasir</option>
-        </select>
+            <select name="role" class="w-full p-2 rounded bg-gray-800 text-white" required>
+                <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
+                <option value="kasir" <?= $user['role'] == 'kasir' ? 'selected' : ''; ?>>Kasir</option>
+            </select>
 
-        <button type="submit" class="bg-yellow-500 px-4 py-2 rounded text-white">Update</button>
-    </form>
+            <button type="submit" class="bg-yellow-500 px-4 py-2 rounded text-white">Update</button>
+        </form>
+    </div>
 </div>
-
 <?php require_once '../../../includes/footer.php'; ?>

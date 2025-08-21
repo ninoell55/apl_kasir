@@ -15,4 +15,4 @@
     <script src="<?= BASE_URL; ?>/assets/js/chart.js"></script>
 </head>
 
-<body class="bg-gray-900 text-white">
+<body>

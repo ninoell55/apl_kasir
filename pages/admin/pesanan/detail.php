@@ -36,7 +36,7 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="p-6 min-h-screen text-gray-100">
+<div class="p-6 bg-gray-900 min-h-screen text-gray-100">
     <?php foreach ($pesanan as $row): ?>
         <div class="bg-gray-800 p-5 rounded-lg shadow-md mb-6">
             <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">

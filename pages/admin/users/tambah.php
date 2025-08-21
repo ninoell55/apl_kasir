@@ -26,18 +26,20 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">Tambah User</h1>
-    <form method="POST" class="space-y-4">
-        <input type="text" name="username" placeholder="Username" class="w-full p-2 rounded bg-gray-800 text-white" required>
-        <input type="password" name="password" placeholder="Password" class="w-full p-2 rounded bg-gray-800 text-white" required>
-        <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="w-full p-2 rounded bg-gray-800 text-white" required>
-        <select name="role" class="w-full p-2 rounded bg-gray-800 text-white" required>
-            <option value="admin">Admin</option>
-            <option value="kasir">Kasir</option>
-        </select>
-        <button type="submit" class="bg-green-500 px-4 py-2 rounded text-white">Simpan</button>
-    </form>
+<div class="p-6 bg-gray-900 min-h-screen text-gray-100">
+    <div class="max-w-md mx-auto mt-10 px-4">
+        <h1 class="text-2xl font-bold mb-4">Tambah User</h1>
+        <form method="POST" class="space-y-4">
+            <input type="text" name="username" placeholder="Username" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            <input type="password" name="password" placeholder="Password" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            <select name="role" class="w-full p-2 rounded bg-gray-800 text-white" required>
+                <option value="admin">Admin</option>
+                <option value="kasir">Kasir</option>
+            </select>
+            <button type="submit" class="bg-green-500 px-4 py-2 rounded text-white">Simpan</button>
+        </form>
+    </div>
 </div>
-        
+
 <?php require_once '../../../includes/footer.php'; ?>

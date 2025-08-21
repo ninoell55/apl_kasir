@@ -25,7 +25,7 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="p-6 min-h-screen text-gray-100">
+<div class="p-6 bg-gray-900 min-h-screen text-gray-100">
     <h2 class="text-2xl font-semibold mb-4">Daftar Pesanan</h2>
 
     <div class="overflow-x-auto bg-gray-800 shadow-md rounded-lg">

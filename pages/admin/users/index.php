@@ -19,7 +19,7 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="p-6">
+<div class="p-6 bg-gray-900 min-h-screen text-gray-100">
     <h1 class="text-2xl font-bold mb-4">Daftar Users</h1>
     <a href="tambah.php" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah User</a>
 

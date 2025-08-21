@@ -19,7 +19,7 @@ require_once '../../../includes/navbar.php';
 require_once '../../../includes/sidebar.php';
 ?>
 
-<div class="mx-auto mt-10 px-4">
+<div class="p-6 bg-gray-900 min-h-screen text-gray-100">
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Manajemen Menu</h2>
         <a href="tambah.php"
