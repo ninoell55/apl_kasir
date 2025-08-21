@@ -96,7 +96,7 @@ $menu_q = $conn->query("SELECT * FROM menu");
         id="openMejaModal"
         class="fixed bottom-6 right-6 px-6 py-3 bg-orange-500 text-white font-semibold rounded-full shadow-lg hover:bg-orange-600 transition z-50"
         data-modal-target="#mejaModal">
-        <i class="bxr bxs-cart"></i>
+        <i class="bx bx-cart"></i>
       </button>
 
       <!-- Modal Ringkasan (Bottom Sheet Android Style) -->
