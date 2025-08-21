@@ -265,7 +265,7 @@ function addMeja($data)
     $filepath = $dir . $filename;
 
     // Generate QR
-    QRcode::png($url, $filepath, QR_ECLEVEL_L, 10);
+    QRcode::png($url, $filepath, QR_ECLEVEL_L, 5);
 
     // Path untuk DB
     $savePath = "assets/img/qrcode/" . $filename;
