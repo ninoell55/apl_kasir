@@ -1,12 +1,18 @@
 <?php
 // simpan_pesanan.php
+session_start();
 include "../../../connection/conn.php"; // koneksi mysqli $conn
 
-// Ambil data dari form
-$id_meja = $_SESSION['id_meja'] ?? 0;
+// Ambil id_meja dari POST dulu, kalau nggak ada baru ambil dari SESSION
+$id_meja = $_POST['id_meja'] ?? ($_SESSION['id_meja'] ?? 0);
+
+// Simpan ke session biar konsisten
+$_SESSION['id_meja'] = $id_meja;
+
 if ($id_meja <= 0) {
     die("Meja belum dipilih melalui QR Code");
 }
+
 $menu_list = $_POST['menu'] ?? [];
 
 $menu_dipesan = array_filter($menu_list, function ($qty) {
@@ -72,9 +78,13 @@ try {
     $conn->commit();
 
     // Redirect atau tampilkan sukses
-    header("Location: menu.php?success=1&kode=" . $kode_pesanan);
+    header("Location: menu.php?success=1&kode=" . $kode_pesanan . "&id_meja=" . $id_meja);
     exit;
 } catch (Exception $e) {
     $conn->rollback();
     echo "Terjadi kesalahan: " . $e->getMessage();
 }
+?>
+
+
+

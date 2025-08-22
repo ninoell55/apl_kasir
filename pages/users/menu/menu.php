@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../../../connection/conn.php";
 include "../../../config/functions.php";
 include "../../../includes/header.php";
@@ -120,153 +121,185 @@ $menu_q = $conn->query("SELECT * FROM menu");
             <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-xl">Konfirmasi & Simpan</button>
           </div>
         </div>
-      </div>
-
-      <script>
-        // Sidebar Control
-        const sidebar = document.getElementById("sidebar");
-        document.getElementById("menuToggle").addEventListener("click", () => {
-          sidebar.classList.remove("-translate-x-full");
-        });
-        document.getElementById("closeSidebar").addEventListener("click", () => {
-          sidebar.classList.add("-translate-x-full");
-        });
-
-        // Qty plus/minus
-        document.querySelectorAll('.qty-plus').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const inp = btn.parentElement.querySelector('.qty-input');
-            inp.value = parseInt(inp.value || 0) + 1;
-            updateSummary();
-          });
-        });
-        document.querySelectorAll('.qty-minus').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const inp = btn.parentElement.querySelector('.qty-input');
-            inp.value = Math.max(0, (parseInt(inp.value || 0) - 1));
-            updateSummary();
-          });
-        });
-        document.querySelectorAll('.qty-input').forEach(inp => {
-          inp.addEventListener('input', updateSummary);
-        });
-
-        // Modal Control
-        document.querySelectorAll("[data-modal-target]").forEach(btn => {
-          btn.addEventListener("click", () => {
-            const target = btn.getAttribute("data-modal-target");
-            const modal = document.querySelector(target);
-            const content = modal.querySelector("#modalContent");
-
-            // show modal
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-
-            setTimeout(() => {
-              modal.classList.remove("opacity-0");
-              modal.classList.add("opacity-100");
-              content.classList.remove("translate-y-full");
-            }, 10);
-
-            updateSummary();
-          });
-        });
-
-        function closeModal(selector) {
-          const modal = document.querySelector(selector);
-          const content = modal.querySelector("#modalContent");
-
-          modal.classList.remove("opacity-100");
-          modal.classList.add("opacity-0");
-          content.classList.add("translate-y-full");
-
-          setTimeout(() => {
-            modal.classList.remove("flex");
-            modal.classList.add("hidden");
-          }, 300); // tunggu transisi selesai
-        }
-
-        // Format Rupiah
-        function formatRupiah(x) {
-          return new Intl.NumberFormat('id-ID').format(x);
-        }
-
-        // Update Ringkasan
-        function updateSummary() {
-          const summary = document.getElementById('orderSummary');
-          const totalEl = document.getElementById('orderTotal');
-          const items = [];
-          let total = 0;
-
-          document.querySelectorAll('.qty-input').forEach(inp => {
-            const qty = parseInt(inp.value || 0);
-            if (qty > 0) {
-              const name = inp.dataset.name || 'Item';
-              const price = parseInt(inp.dataset.price || 0);
-              const subtotal = price * qty;
-              items.push({
-                name,
-                qty,
-                price,
-                subtotal
-              });
-              total += subtotal;
-            }
-          });
-
-          if (items.length === 0) {
-            summary.innerHTML = '<em>Belum ada item terpilih.</em>';
-            totalEl.textContent = 'Rp 0';
-            return;
-          }
-
-          let html = '<ul class="space-y-2">';
-          items.forEach(it => {
-            html += `<li class="border-b pb-2">
-          <strong>${it.name}</strong> × ${it.qty}
-          <div class="text-xs text-gray-500">Rp ${formatRupiah(it.price)} — Sub: Rp ${formatRupiah(it.subtotal)}</div>
-        </li>`;
-          });
-          html += '</ul>';
-          summary.innerHTML = html;
-          totalEl.textContent = 'Rp ' + formatRupiah(total);
-        }
-
-        // Filter kategori
-        document.querySelectorAll('.category-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const cat = btn.dataset.category;
-            document.querySelectorAll('.menu-card').forEach(card => {
-              if (cat === 'all' || card.dataset.category === cat) {
-                card.classList.remove('hidden');
-              } else {
-                card.classList.add('hidden');
-              }
-            });
-            // Update style tombol aktif
-            document.querySelectorAll('.category-btn').forEach(b => {
-              b.classList.remove('bg-orange-500', 'text-white');
-              b.classList.add('bg-gray-200', 'text-gray-700');
-            });
-            btn.classList.add('bg-orange-500', 'text-white');
-            btn.classList.remove('bg-gray-200', 'text-gray-700');
-          });
-        });
-
-        // Search menu
-        document.getElementById("searchMenu").addEventListener("input", function() {
-          const q = this.value.toLowerCase();
-          document.querySelectorAll(".menu-card").forEach(card => {
-            const name = card.dataset.name;
-            if (name.includes(q)) {
-              card.classList.remove("hidden");
-            } else {
-              card.classList.add("hidden");
-            }
-          });
-        });
-      </script>
+      </div> 
   </div>
 </div>
+
+<script>
+// Sidebar Control
+const sidebar = document.getElementById("sidebar");
+document.getElementById("menuToggle").addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+});
+document.getElementById("closeSidebar").addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+});
+
+// Qty plus/minus
+document.querySelectorAll('.qty-plus').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const inp = btn.parentElement.querySelector('.qty-input');
+    inp.value = parseInt(inp.value || 0) + 1;
+    updateSummary();
+  });
+});
+document.querySelectorAll('.qty-minus').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const inp = btn.parentElement.querySelector('.qty-input');
+    inp.value = Math.max(0, (parseInt(inp.value || 0) - 1));
+    updateSummary();
+  });
+});
+document.querySelectorAll('.qty-input').forEach(inp => {
+  inp.addEventListener('input', updateSummary);
+});
+
+// Modal Control
+document.querySelectorAll("[data-modal-target]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.getAttribute("data-modal-target");
+    const modal = document.querySelector(target);
+    const content = modal.querySelector("#modalContent");
+
+    // show modal
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    setTimeout(() => {
+      modal.classList.remove("opacity-0");
+      modal.classList.add("opacity-100");
+      content.classList.remove("translate-y-full");
+    }, 10);
+
+    updateSummary();
+  });
+});
+
+function closeModal(selector) {
+  const modal = document.querySelector(selector);
+  const content = modal.querySelector("#modalContent");
+
+  modal.classList.remove("opacity-100");
+  modal.classList.add("opacity-0");
+  content.classList.add("translate-y-full");
+
+  setTimeout(() => {
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
+  }, 300); // tunggu transisi selesai
+}
+
+// Format Rupiah
+function formatRupiah(x) {
+  return new Intl.NumberFormat('id-ID').format(x);
+}
+
+// Update Ringkasan
+function updateSummary() {
+  const summary = document.getElementById('orderSummary');
+  const totalEl = document.getElementById('orderTotal');
+  const items = [];
+  let total = 0;
+
+  document.querySelectorAll('.qty-input').forEach(inp => {
+    const qty = parseInt(inp.value || 0);
+    if (qty > 0) {
+      const name = inp.dataset.name || 'Item';
+      const price = parseInt(inp.dataset.price || 0);
+      const subtotal = price * qty;
+      items.push({
+        name,
+        qty,
+        price,
+        subtotal
+      });
+      total += subtotal;
+    }
+  });
+
+  if (items.length === 0) {
+    summary.innerHTML = '<em>Belum ada item terpilih.</em>';
+    totalEl.textContent = 'Rp 0';
+    return;
+  }
+
+  let html = '<ul class="space-y-2">';
+  items.forEach(it => {
+    html += `<li class="border-b pb-2">
+  <strong>${it.name}</strong> × ${it.qty}
+  <div class="text-xs text-gray-500">Rp ${formatRupiah(it.price)} — Sub: Rp ${formatRupiah(it.subtotal)}</div>
+</li>`;
+  });
+  html += '</ul>';
+  summary.innerHTML = html;
+  totalEl.textContent = 'Rp ' + formatRupiah(total);
+}
+
+// Filter kategori
+document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cat = btn.dataset.category;
+    document.querySelectorAll('.menu-card').forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    // Update style tombol aktif
+    document.querySelectorAll('.category-btn').forEach(b => {
+      b.classList.remove('bg-orange-500', 'text-white');
+      b.classList.add('bg-gray-200', 'text-gray-700');
+    });
+    btn.classList.add('bg-orange-500', 'text-white');
+    btn.classList.remove('bg-gray-200', 'text-gray-700');
+  });
+});
+
+// Search menu
+document.getElementById("searchMenu").addEventListener("input", function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll(".menu-card").forEach(card => {
+    const name = card.dataset.name;
+    if (name.includes(q)) {
+      card.classList.remove("hidden");
+    } else {
+      card.classList.add("hidden");
+    }
+  });
+});
+btn.classList.add('bg-orange-500','text-white');
+btn.classList.remove('bg-gray-200','text-gray-700');
+});
+});
+
+// Search menu
+document.getElementById("searchMenu").addEventListener("input", function() {
+const q = this.value.toLowerCase();
+document.querySelectorAll(".menu-card").forEach(card => {
+const name = card.dataset.name;
+if (name.includes(q)) {
+  card.classList.remove("hidden");
+} else {
+  card.classList.add("hidden");
+}
+});
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+<?php
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Pesanan anda sedang diproses',
+            text: 'Harap tunggu yaa 😊',
+            confirmButtonColor: '#ff6600'
+        });
+    </script>";
+}
+?>
 
 <?php include "../../../includes/footer.php" ?>
