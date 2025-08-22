@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../../../connection/conn.php";
 
 // Pastikan id_meja dari URL valid
@@ -224,5 +225,19 @@ $menu_q = $conn->query("SELECT * FROM menu");
       });
     });
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Pesanan anda sedang diproses',
+            text: 'Harap tunggu yaa 😊',
+            confirmButtonColor: '#ff6600'
+        });
+    </script>";
+}
+?>
 </body>
 </html>
