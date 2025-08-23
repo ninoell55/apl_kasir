@@ -44,8 +44,16 @@ require_once '../../../includes/sidebar.php';
             </h2>
             <div class="grid gap-3 text-gray-300">
                 <div class="flex justify-between">
+                    <span class="font-medium text-gray-200">Metode Pesanan:</span>
+                    <span class="italic"><?= $row['metode_pesanan']; ?></span>
+                </div>
+                <div class="flex justify-between">
                     <span class="font-medium text-gray-200">No Meja:</span>
-                    <span><?= $row['no_meja']; ?></span>
+                    <?php if (isset($row['no_meeja'])) : ?>
+                        <span><?= $row['no_meja']; ?></span>
+                    <?php else: ?>
+                        <span>-</span>
+                    <?php endif; ?>
                 </div>
                 <div class="flex justify-between items-center">
                     <span class="font-medium text-gray-200">Status:</span>

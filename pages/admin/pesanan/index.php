@@ -47,7 +47,11 @@ require_once '../../../includes/sidebar.php';
                         <tr class="hover:bg-gray-700">
                             <td class="px-4 py-3 border border-gray-700"><?= $no++; ?></td>
                             <td class="px-4 py-3 border border-gray-700"><?= $row['kode_pesanan']; ?></td>
-                            <td class="px-4 py-3 border border-gray-700"><?= $row['no_meja']; ?></td>
+                            <?php if (isset($row['no_meja'])) : ?>
+                                <td class="px-4 py-3 border border-gray-700"><?= $row['no_meja']; ?></td>
+                            <?php else : ?>
+                                <td class="px-4 py-3 border border-gray-700">-</td>
+                            <?php endif; ?>
                             <td class="px-4 py-3 border border-gray-700"><?= $row['tanggal_pesanan']; ?></td>
                             <td class="px-4 py-3 border border-gray-700">
                                 <span class="px-2 py-1 text-xs font-medium rounded-full 
@@ -59,9 +63,9 @@ require_once '../../../includes/sidebar.php';
                             <td class="px-4 py-3 border border-gray-700 space-x-2">
                                 <a href="detail.php?id=<?= $row['id_pesanan']; ?>"
                                     class="text-blue-400 hover:text-blue-300">Detail</a>
-                                <a href="update_status.php?id=<?= $row['id_pesanan']; ?>&status=diproses"
+                                <a href="updateStatus.php?id=<?= $row['id_pesanan']; ?>&status=diproses"
                                     class="text-yellow-400 hover:text-yellow-300">Proses</a>
-                                <a href="update_status.php?id=<?= $row['id_pesanan']; ?>&status=selesai"
+                                <a href="updateStatus.php?id=<?= $row['id_pesanan']; ?>&status=selesai"
                                     class="text-green-400 hover:text-green-300">Selesai</a>
                                 <a href="../pembayaran/create.php?id=<?= $row['id_pesanan']; ?>"
                                     class="text-purple-400 hover:text-purple-300">Bayar</a>
