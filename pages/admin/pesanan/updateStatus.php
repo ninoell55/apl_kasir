@@ -30,5 +30,5 @@ $stmtLog->execute();
 $stmtLog->close();
 
 // Kembali ke daftar pesanan
-header("Location: index.php?");
+header("Location: index.php");
 exit;
