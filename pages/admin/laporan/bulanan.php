@@ -15,14 +15,15 @@ $bulan = isset($_GET['bulan']) ? $_GET['bulan'] : date('m');
 $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : date('Y');
 
 // Query rekap pesanan per tanggal
-$rekap = query("
-    SELECT DATE(tanggal_pesanan) as tgl, COUNT(*) as jumlah_pesanan, 
-           SUM(CASE WHEN status='dibayar' THEN total ELSE 0 END) as pemasukan
+$rekap = query(
+    "SELECT 
+        DATE(tanggal_pesanan) as tgl, COUNT(*) as jumlah_pesanan, 
+        SUM(CASE WHEN status='dibayar' THEN total ELSE 0 END) as pemasukan
     FROM pesanan
-    WHERE MONTH(tanggal_pesanan) = '$bulan' AND YEAR(tanggal_pesanan) = '$tahun'
+        WHERE MONTH(tanggal_pesanan) = '$bulan' AND YEAR(tanggal_pesanan) = '$tahun'
     GROUP BY DATE(tanggal_pesanan)
-    ORDER BY tgl ASC
-");
+    ORDER BY tgl ASC"
+);
 
 // Hitung total pemasukan bulan
 $totalPemasukan = 0;

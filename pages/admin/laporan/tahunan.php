@@ -40,13 +40,15 @@ require_once '../../../includes/sidebar.php';
     <?php if (isset($_GET['tahun'])): ?>
         <?php
         $tahun = $_GET['tahun'];
-        $laporanTahunan = query("
-                SELECT MONTH(tanggal_pesanan) as bulan, COUNT(*) as total_pesanan, SUM(total) as total_pendapatan
+        $laporanTahunan = query(
+                "SELECT 
+                    MONTH(tanggal_pesanan) as bulan, COUNT(*) as total_pesanan, 
+                    SUM(CASE WHEN status='dibayar' THEN total ELSE 0 END) as total_pendapatan
                 FROM pesanan 
-                WHERE YEAR(tanggal_pesanan) = $tahun
+                    WHERE YEAR(tanggal_pesanan) = $tahun
                 GROUP BY MONTH(tanggal_pesanan)
-                ORDER BY bulan
-            ");
+                ORDER BY bulan"
+            );
         ?>
 
         <div class="bg-gray-800 p-4 rounded-2xl shadow-lg overflow-x-auto">

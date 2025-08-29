@@ -14,13 +14,15 @@ if (!isset($_SESSION['login_users'])) {
 $tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : date('Y-m-d');
 
 // Query pesanan sesuai tanggal
-$pesanan = query("
-    SELECT p.id_pesanan, p.kode_pesanan, p.total, p.status, p.tanggal_pesanan, m.no_meja 
+$pesanan = query(
+    "SELECT 
+        p.id_pesanan, p.kode_pesanan, p.total, p.status, p.tanggal_pesanan, m.no_meja 
     FROM pesanan p 
-    LEFT JOIN meja m ON p.id_meja = m.id_meja
-    WHERE DATE(p.tanggal_pesanan) = '$tanggal'
-    ORDER BY p.tanggal_pesanan DESC
-");
+        LEFT JOIN meja m
+            ON p.id_meja = m.id_meja
+        WHERE DATE(p.tanggal_pesanan) = '$tanggal'
+    ORDER BY p.tanggal_pesanan DESC"
+);
 
 // Hitung total pemasukan
 $totalPemasukan = 0;
